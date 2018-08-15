@@ -38,12 +38,31 @@ public class Respondent  implements Entity {
     @ManyToOne
     @JoinColumn(name = "interviewer_id", nullable = false)
     private Interviewer interviewer;
+    
+    @ManyToOne
+    @JoinColumn(name = "awc_id", nullable = false)
+    private Awc awc;
 
     @Column(name = "village_name", nullable = false)
     private String villageName;
     
     @Column(name = "sample_num", nullable = false)
     private Long sampleNum;
+    
+    @Column(name = "hsc_name", nullable = false)
+    private String hscName;
+
+    @Column(name = "ward", nullable = false)
+    private String ward;
+    
+    @Column(name = "address", nullable = false)
+    private String address;
+    
+    @Column(name = "contact_num", nullable = false)
+    private String contactNum;
+    
+    @Column(name = "result_status", nullable = false)
+    private String resultStatus;
     
     @Column(name = "audio", nullable = false)
     private String audio;
@@ -124,6 +143,54 @@ public class Respondent  implements Entity {
 
 	public void setSubmissionDate(Date submissionDate) {
 		this.submissionDate = submissionDate;
+	}
+	
+	public Awc getAwc() {
+		return awc;
+	}
+
+	public void setAwc(Awc awc) {
+		this.awc = awc;
+	}
+
+	public String getHscName() {
+		return hscName;
+	}
+
+	public void setHscName(String hscName) {
+		this.hscName = hscName;
+	}
+
+	public String getWard() {
+		return ward;
+	}
+
+	public void setWard(String ward) {
+		this.ward = ward;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getContactNum() {
+		return contactNum;
+	}
+
+	public void setContactNum(String contactNum) {
+		this.contactNum = contactNum;
+	}
+
+	public String getResultStatus() {
+		return resultStatus;
+	}
+
+	public void setResultStatus(String resultStatus) {
+		this.resultStatus = resultStatus;
 	}
 
 	@Override

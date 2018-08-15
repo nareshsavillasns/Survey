@@ -14,8 +14,8 @@ public class RespondentServiceImp implements RespondentService{
 	private RespondentDao respondentDao;
 	
 	@Override
-	public Page<RespondentData> getAllRespondents(Long blockId, Long districtId,Long regionId,String searchString,Long pageNum, Long pageSize) {
-		return respondentDao.findAllRespondents(blockId, districtId, regionId, searchString, pageNum, pageSize);
+	public Page<RespondentData> getAllRespondents(Long blockId, Long districtId,Long regionId, Long interviewerId,String searchString,Long pageNum, Long pageSize) {
+		return respondentDao.findAllRespondents(blockId, districtId, regionId,interviewerId, searchString, pageNum, pageSize);
 	}
 
 }

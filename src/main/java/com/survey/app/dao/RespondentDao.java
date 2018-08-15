@@ -6,5 +6,5 @@ import com.survey.app.util.Page;
 public interface RespondentDao {
 
 Page<RespondentData> findAllRespondents(Long blockId, Long districtId,
-		Long regionId, String searchString, Long pageNum, Long pageSize);
+		Long regionId, Long interviewerId, String searchString, Long pageNum, Long pageSize);
 }

@@ -13,6 +13,7 @@ import com.suervey.app.util.AppConstants;
 import com.survey.app.dto.RespondentData;
 import com.survey.app.model.Block;
 import com.survey.app.model.District;
+import com.survey.app.model.Interviewer;
 import com.survey.app.model.Region;
 import com.survey.app.service.RespondentService;
 import com.survey.app.service.SurveyCommonService;
@@ -35,20 +36,23 @@ private SurveyCommonService surveyCommonService;
             									@RequestParam(value = "districtId", defaultValue = AppConstants.DEFAULT_LONG_VALUE) Long districtId,
             									@RequestParam(value = "regionId", defaultValue = AppConstants.DEFAULT_LONG_VALUE) Long regionId,
             									@RequestParam(value = "searchString", defaultValue = StringUtils.EMPTY) String searchString,
+            									@RequestParam(value = "interviewerId", defaultValue = AppConstants.DEFAULT_LONG_VALUE) Long interviewerId,
                                                 @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Long page,
                                                 @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Long size) {
     	
-        return respondentService.getAllRespondents(blockId, districtId, regionId, searchString, page, size);
+        return respondentService.getAllRespondents(blockId, districtId, regionId,interviewerId, searchString, page, size);
     }
  
     @GetMapping("/template")
 	public RespondentData getRespondentTemplateData( @RequestParam(value = "regionId", defaultValue = AppConstants.DEFAULT_LONG_VALUE) Long regionId,
-			 @RequestParam(value = "districtId", defaultValue = AppConstants.DEFAULT_LONG_VALUE) Long districtId)
+			 @RequestParam(value = "districtId", defaultValue = AppConstants.DEFAULT_LONG_VALUE) Long districtId,
+			 	@RequestParam(value = "interviewerId", defaultValue = AppConstants.DEFAULT_LONG_VALUE) Long interviewerId)
 	{
     	List<Region> regions = this.surveyCommonService.findAllRegions();
     	List<District> districts =regionId == 0?this.surveyCommonService.findAllDistricts():this.surveyCommonService.findDistrictsByRegionId(regionId);
     	List<Block> blocks = districtId==0?this.surveyCommonService.findAllBlocks():this.surveyCommonService.findBlocksByDistrictId(districtId);
-		return new RespondentData(regions,districts,blocks);
+    	List<Interviewer> interviewers = districtId==0?this.surveyCommonService.findAllInterviewers():this.surveyCommonService.findInterviewerById(interviewerId);
+		return new RespondentData(regions,districts,blocks,interviewers);
     	
 	}
  

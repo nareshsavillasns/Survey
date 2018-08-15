@@ -6,6 +6,6 @@ import com.survey.app.util.Page;
 public interface RespondentService {
 
 Page<RespondentData> getAllRespondents(Long blockId, Long districtId,
-		Long regionId, String searchString, Long pageNum, Long pageSize);
+		Long regionId, Long interviewerId, String searchString, Long pageNum, Long pageSize);
 	
 }

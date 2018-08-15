@@ -29,7 +29,7 @@ public class RespondentDaoImpl extends JpaDao<Respondent, Long> implements Respo
 	
 	@Override
 	@Transactional(readOnly = true)
-	public Page<RespondentData> findAllRespondents(Long blockId, Long districtId,Long regionId,String searchString,
+	public Page<RespondentData> findAllRespondents(Long blockId, Long districtId,Long regionId,Long interviewerId,String searchString,
 			Long pageNum, Long pageSize) {
 		
 	       RespondentMapper mapper = new RespondentMapper();
@@ -48,6 +48,9 @@ public class RespondentDaoImpl extends JpaDao<Respondent, Long> implements Respo
 				
 			}if(regionId != 0){
 				sqlBuilder.append(" and region.id ="+regionId);
+			}
+			if(interviewerId != 0){
+				sqlBuilder.append(" and res.interviewer_id ="+interviewerId);
 			}
 			
 			sqlBuilder.append(" group by res.id");
@@ -69,10 +72,14 @@ public class RespondentDaoImpl extends JpaDao<Respondent, Long> implements Respo
 		public String schema() {
 			return "  res.id as id,region.region_name as regionName,dis.district_name as districtName,block.block_name as blockName," +
 					" res.village_name as villageName,interviewer.interviewer_name as interviewerName,res.respondent_name as respondentName," +
-					" res.audio as audio,res.sample_num as samplenum,res.submission_date as lastSubmission from respondent res " +
+					" res.audio as audio,res.sample_num as samplenum,res.submission_date as lastSubmission,"
+					+ "awc.awc_code as awcCode,hsc_name as hscName,ward as ward,address as address,contact_num as contactNum,"
+					+ " result_status as resultStatus"
+					+ " from respondent res " +
 					" left join block block ON block.id = res.block_id" +
 					" left join district dis ON dis.id = block.district_id" +
-					" left join region ON region.id = dis.region_id" +
+					" left join region ON region.id = dis.region_id"
+					+ " left join awc awc ON awc.id = res.awc_id" +
 					" left join interviewer ON interviewer.id = res.interviewer_id where 1=1 ";
 		}
 
@@ -90,12 +97,21 @@ public class RespondentDaoImpl extends JpaDao<Respondent, Long> implements Respo
 			String respondentName = rs.getString("respondentName");
 			String audio = rs.getString("audio");
 			Long samplenum = rs.getLong("samplenum");
+			String awcCode = rs.getString("awcCode");
+			String hscName = rs.getString("hscName");
+			String ward = rs.getString("ward");
+			String address = rs.getString("address");
+			String contactNum = rs.getString("contactNum");
+			String resultStatus = rs.getString("resultStatus");
 			LocalDate lastSubmission = JdbcSupport.getLocalDate(rs, "lastSubmission");
 			
-			return new RespondentData(id,regionName,districtName,blockName,villageName,interviewerName,respondentName,audio,samplenum,lastSubmission);
+			return new RespondentData(id,regionName,districtName,blockName,villageName,interviewerName,respondentName,audio,samplenum,lastSubmission,
+					awcCode,hscName,ward,address,contactNum,resultStatus);
 			
 
 		}
 	}
+
+
 
 }

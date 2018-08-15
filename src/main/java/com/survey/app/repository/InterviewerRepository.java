@@ -11,5 +11,4 @@ import com.survey.app.model.Interviewer;
 public interface InterviewerRepository extends JpaRepository<Interviewer, Long> {
 
     List<Interviewer>  findAll();
-
 }
