@@ -41,9 +41,8 @@ private JobParameters parameters;
 		 ArrayList<RespondentDTO>  list = new ArrayList();
 		CSVContext context = new CSVContext();
 		if(isFirst){
-			isFirst = false;
 			String filelocation =parameters.getString("filelocation");
-			Reader in = new FileReader("C:\\Users\\home\\Desktop\\MWRA_dummy_responses - data.csv");
+			Reader in = new FileReader(filelocation);
 			Iterable<CSVRecord> records =SurveyUtil.getrecords(in);
 			for (CSVRecord record : records) {
 				if(!firstRow){
@@ -56,6 +55,7 @@ private JobParameters parameters;
 			
 		}
 		if(!isFirst){isFirst = true;return null;}
+		isFirst = false;
 		//else list.clear();
         return context;
 	}//
