@@ -15,10 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.concretepage.job.impl.JobCompletionListener;
-import com.concretepage.job.impl.Processor;
-import com.concretepage.job.impl.ReaderCsv;
-import com.concretepage.job.impl.Writer;
+import com.survey.app.job.impl.JobCompletionListener;
+import com.survey.app.job.impl.Processor;
+import com.survey.app.job.impl.ReaderCsv;
+import com.survey.app.job.impl.Writer;
 
 
 @Configuration
@@ -30,6 +30,15 @@ public class BatchConfig {
 
 	@Autowired
 	public StepBuilderFactory stepBuilderFactory;
+	
+	@Autowired
+	private ReaderCsv readerCsv;
+	
+	@Autowired
+	private Processor processor;
+	
+	@Autowired
+	private Writer writer;
 
 	@Bean
 	public Job processJob() {
@@ -41,8 +50,8 @@ public class BatchConfig {
 	@Bean
 	public Step orderStep1() {
 		return stepBuilderFactory.get("orderStep1").<CSVContext, CSVContext> chunk(1)
-				.reader(new ReaderCsv()).processor(new Processor())
-				.writer(new Writer()).build();
+				.reader(readerCsv).processor(processor)
+				.writer(writer).build();
 	}
 
 	@Bean

@@ -1,4 +1,4 @@
-package com.concretepage.job.dto;
+package com.survey.app.job.dto;
 
 
 public class Session1 {

@@ -71,13 +71,14 @@ public class RespondentDaoImpl extends JpaDao<Respondent, Long> implements Respo
 
 		public String schema() {
 			return "  res.id as id,region.region_name as regionName,dis.district_name as districtName,block.block_name as blockName," +
-					" res.village_name as villageName,interviewer.interviewer_name as interviewerName,res.respondent_name as respondentName," +
+				   " res.village_name as villageName,interviewer.interviewer_name as interviewerName,res.respondent_name as respondentName," +
 					" res.audio as audio,res.sample_num as samplenum,res.submission_date as lastSubmission,"
-					+ "awc.awc_code as awcCode,hsc_name as hscName,ward as ward,address as address,contact_num as contactNum,"
+					+ "awc.awc_code as awcCode,hsc_name as hscName,w.ward_name as ward,address as address,contact_num as contactNum,"
 					+ " result_status as resultStatus"
 					+ " from respondent res " +
 					" left join block block ON block.id = res.block_id" +
-					" left join district dis ON dis.id = block.district_id" +
+					" left join district dis ON dis.id = block.district_id"
+					+ " left join ward w ON w.id=res.ward_id" +
 					" left join region ON region.id = dis.region_id"
 					+ " left join awc awc ON awc.id = res.awc_id" +
 					" left join interviewer ON interviewer.id = res.interviewer_id where 1=1 ";

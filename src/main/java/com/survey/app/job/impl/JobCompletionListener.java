@@ -1,4 +1,4 @@
-package com.concretepage.job.impl;
+package com.survey.app.job.impl;
 
 import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.JobExecution;

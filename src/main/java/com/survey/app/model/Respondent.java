@@ -14,18 +14,19 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.survey.app.entity.Entity;
-import com.survey.app.model.District;
 
 
 @javax.persistence.Entity
 @Table(name = "respondent")
 public class Respondent  implements Entity {
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8589165463723014137L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "awc_code", nullable = false)
-    private String awcCode;
     
     @ManyToOne
     @JoinColumn(name = "district_id", nullable = false)
@@ -52,8 +53,9 @@ public class Respondent  implements Entity {
     @Column(name = "hsc_name", nullable = false)
     private String hscName;
 
-    @Column(name = "ward", nullable = false)
-    private String ward;
+    @ManyToOne
+    @JoinColumn(name = "ward_id", nullable = false)
+    private Ward ward;
     
     @Column(name = "address", nullable = false)
     private String address;
@@ -81,13 +83,6 @@ public class Respondent  implements Entity {
 		this.id = id;
 	}
 
-	public String getAwcCode() {
-		return awcCode;
-	}
-
-	public void setAwcCode(String awcCode) {
-		this.awcCode = awcCode;
-	}
 
 	public District getDistrict() {
 		return district;
@@ -161,11 +156,11 @@ public class Respondent  implements Entity {
 		this.hscName = hscName;
 	}
 
-	public String getWard() {
+	public Ward getWard() {
 		return ward;
 	}
 
-	public void setWard(String ward) {
+	public void setWard(Ward ward) {
 		this.ward = ward;
 	}
 

@@ -26,7 +26,6 @@ private SurveyCommonService surveyCommonService;
     @GetMapping("/getdistrics/{regionId}")
 	public ResponseEntity<List<District>> getRespondentTemplateData(@PathVariable("regionId") final Long regionId)
 	{
-    	//return this.surveyCommonService.findDistrictsByRegionId(regionId);
     	return new  ResponseEntity<>(this.surveyCommonService.findDistrictsByRegionId(regionId), HttpStatus.OK);
     	
 	}
